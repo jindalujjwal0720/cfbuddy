@@ -17,7 +17,7 @@ class UserCubit extends Cubit<UserState> {
     emit(UserLoading());
     final UserModel user;
     // trim handle for whitespace, and lower case characters
-    handle = handle.replaceAll(RegExp(r'[^A-Za-z0-9]'), '').toLowerCase();
+    handle = handle.replaceAll(RegExp(r'[^A-Za-z0-9_\-.]'), '').toLowerCase();
 
     /// For reducing API Calls to the server, a CONSTANTS file is created to store data
     if (userConstants.isUserLoaded == false || handle.isNotEmpty) {
@@ -55,18 +55,23 @@ class UserCubit extends Cubit<UserState> {
     }
 
     // remove USER from friends list if occur
-    friendsHandles.removeWhere(
-        (handle) => handle.compareTo(userConstants.user.handle) == 0);
+    friendsHandles.removeWhere((handle) =>
+        handle
+            .toLowerCase()
+            .compareTo(userConstants.user.handle.toLowerCase()) ==
+        0);
     // remove duplicates
     friendsHandles = friendsHandles.toSet().toList();
     // remove handles already present in CONSTANTS file
-    friendsHandles.removeWhere((handle) => (userConstants.friends
-        .where((element) => element.handle == handle)).isNotEmpty);
+    friendsHandles.removeWhere((handle) => (userConstants.friends.where(
+            (element) => element.handle.toLowerCase() == handle.toLowerCase()))
+        .isNotEmpty);
 
     // For reducing API Calls to the server, a CONSTANTS file is created to store data
     if (userConstants.areFriendsLoaded == false || friendsHandles.isNotEmpty) {
       newFriends = await UserRepositoryImpl().getUsersDetails(friendsHandles);
       allFriends.addAll(newFriends);
+      allFriends = allFriends.toSet().toList();
       userConstants =
           userConstants.copyWith(friends: allFriends, areFriendsLoaded: true);
     } else {
@@ -74,15 +79,17 @@ class UserCubit extends Cubit<UserState> {
     }
     friendsHandles = [];
     for (var friend in userConstants.friends) {
-      friendsHandles.add(friend.handle);
+      friendsHandles.add(friend.handle.toLowerCase());
     }
+    friendsHandles = friendsHandles.toSet().toList();
     SharedPrefsService().setFriendsList(friendsHandles);
     emit(UserLoaded(userConstants.user));
   }
 
   Future<void> removeFriend(String handle) async {
     emit(UserLoading());
-    userConstants.friends.removeWhere((element) => (element.handle == handle));
+    userConstants.friends.removeWhere(
+        (element) => (element.handle.toLowerCase() == handle.toLowerCase()));
     List<String> friendsHandles = [];
     for (var friend in userConstants.friends) {
       friendsHandles.add(friend.handle);

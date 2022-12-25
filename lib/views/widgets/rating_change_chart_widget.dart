@@ -4,6 +4,8 @@ import 'package:bloc1/views/widgets/components/empty_states.dart';
 import 'package:flutter/material.dart';
 import 'package:charts_flutter_new/flutter.dart' as charts;
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'dart:developer' as dev;
+import 'components/error_states.dart';
 
 class RatingChangeChart extends StatelessWidget {
   const RatingChangeChart({Key? key}) : super(key: key);
@@ -36,7 +38,8 @@ class RatingChangeChart extends StatelessWidget {
           ),
         );
       } else if (state is RatingChangeChartError) {
-        return Text("Error from ratings change chart: ${state.message}");
+        dev.log("Error: (Rating Change Chart widget) - ${state.message}");
+        return const ErrorStates().basicErrorWidget(() {});
       } else {
         return const EmptyStates().emptyRatingChart();
       }

@@ -1,6 +1,9 @@
 import 'package:bloc1/business_logic/cubit/add_user_handle_cubit.dart';
+import 'package:bloc1/business_logic/cubit/app_initialisation_cubit.dart';
 import 'package:bloc1/business_logic/cubit/users_list_cubit.dart';
 import 'package:bloc1/utils/app_theme.dart';
+import 'package:bloc1/views/widgets/contest_standings_widget.dart';
+import 'package:bloc1/views/widgets/submission_code_viewer_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -129,7 +132,6 @@ class LogoutConfirmationDialog extends StatelessWidget {
       clipBehavior: Clip.hardEdge,
       elevation: 0,
       insetAnimationCurve: Curves.easeOut,
-      insetAnimationDuration: const Duration(milliseconds: 100),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: SizedBox(
@@ -217,7 +219,15 @@ class LogoutConfirmationDialog extends StatelessWidget {
                             ),
                             Expanded(
                               child: TextButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  BlocProvider.of<AppInitialisationCubit>(
+                                          context)
+                                      .deleteUserData()
+                                      .then((value) {
+                                    Navigator.pushReplacementNamed(
+                                        context, "/");
+                                  });
+                                },
                                 child: Container(
                                   height: 40,
                                   child: const Center(
@@ -244,6 +254,46 @@ class LogoutConfirmationDialog extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class SubmissionCodeViewerDialog extends StatelessWidget {
+  const SubmissionCodeViewerDialog({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      backgroundColor: Colors.transparent,
+      insetPadding: const EdgeInsets.all(12.0),
+      child: Container(
+        padding: const EdgeInsets.all(8.0),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12.0),
+          color: Colors.white,
+        ),
+        child: const SubmissionCodeViewerWidget(600),
+      ),
+    );
+  }
+}
+
+class ContestStandingsDialog extends StatelessWidget {
+  const ContestStandingsDialog({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      backgroundColor: Colors.transparent,
+      insetPadding: const EdgeInsets.all(12.0),
+      child: Container(
+        padding: const EdgeInsets.all(8.0),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12.0),
+          color: Colors.white,
+        ),
+        child: const ContestStandingsWidget(600),
       ),
     );
   }

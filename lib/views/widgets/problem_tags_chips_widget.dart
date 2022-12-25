@@ -4,6 +4,10 @@ import 'package:bloc1/views/widgets/components/empty_states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'dart:developer' as dev;
+
+import 'components/error_states.dart';
+
 class ProblemTagsChipsWidget extends StatelessWidget {
   final String handle;
   const ProblemTagsChipsWidget(this.handle, {super.key});
@@ -76,7 +80,8 @@ class ProblemTagsChipsWidget extends StatelessWidget {
             ],
           );
         } else if (state is ProblemTagsChipsError) {
-          return Text("Error: ${state.message}");
+          dev.log("Error: (Problem Tags Chips widget) - ${state.message}");
+          return const ErrorStates().basicErrorWidget(() {});
         } else {
           return const EmptyStates().emptyChipsWidget();
         }

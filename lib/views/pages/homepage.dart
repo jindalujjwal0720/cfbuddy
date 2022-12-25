@@ -1,12 +1,15 @@
 import 'package:bloc1/business_logic/AppRouter/navigation_cubit.dart';
 import 'package:bloc1/business_logic/cubit/add_user_handle_cubit.dart';
 import 'package:bloc1/business_logic/cubit/app_cubit.dart';
+import 'package:bloc1/business_logic/cubit/contests_list_cubit.dart';
+import 'package:bloc1/business_logic/cubit/local_notifications_cubit.dart';
 import 'package:bloc1/business_logic/cubit/logout_cubit.dart';
 import 'package:bloc1/business_logic/cubit/user_card_cubit.dart';
 import 'package:bloc1/business_logic/cubit/users_list_cubit.dart';
 import 'package:bloc1/utils/app_theme.dart';
 import 'package:bloc1/views/widgets/components/appbar_custom.dart';
 import 'package:bloc1/views/widgets/components/dialog_widgets.dart';
+import 'package:bloc1/views/widgets/contests_list_widget.dart';
 import 'package:bloc1/views/widgets/user_card_widget.dart';
 import 'package:bloc1/views/widgets/users_list_widget.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +21,9 @@ class HomePage extends StatelessWidget {
   Future<void> initialiseHomePage(BuildContext context) async {
     BlocProvider.of<UserCardCubit>(context).makeUserCard();
     BlocProvider.of<UsersListCubit>(context).makeUsersList();
+    await BlocProvider.of<LocalNotificationsCubit>(context)
+        .initialiseLocalNotifications();
+    BlocProvider.of<ContestsListCubit>(context).makeUpcomingContestsList();
   }
 
   @override
@@ -147,6 +153,9 @@ class HomePage extends StatelessWidget {
                         ),
                       ),
                     ),
+                    
+                    const ContestsListWidget(),
+                    const SizedBox(height: 80),
                   ],
                 ),
               ),

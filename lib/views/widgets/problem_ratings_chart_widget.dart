@@ -2,8 +2,9 @@ import 'package:bloc1/business_logic/cubit/problem_rating_chart_cubit.dart';
 import 'package:bloc1/views/widgets/components/empty_states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'dart:developer' as dev;
 import '../../utils/helper_functions_ans_widgets.dart';
+import 'components/error_states.dart';
 
 class ProblemRatingsChartWidget extends StatelessWidget {
   final String handle;
@@ -56,7 +57,8 @@ class ProblemRatingsChartWidget extends StatelessWidget {
           thickness: 10,
         );
       } else if (state is ProblemRatingChartError) {
-        return Text("Error: ${state.message}");
+        dev.log("Error: (Problem rating chart widget) - ${state.message}");
+        return const ErrorStates().basicErrorWidget(() {});
       } else {
         return const EmptyStates().emptyRatingChart();
       }

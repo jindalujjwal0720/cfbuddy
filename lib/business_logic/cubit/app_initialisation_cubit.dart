@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:bloc1/business_logic/cubit/user_cubit.dart';
+import 'package:bloc1/utils/services/local_notifications_service.dart';
 import 'package:equatable/equatable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -29,5 +30,11 @@ class AppInitialisationCubit extends Cubit<AppInitialisationState> {
     await prefs.setBool("auth", true);
     await prefs.setString("userHandle", handle);
     await prefs.setStringList("friendsHandles", []);
+  }
+
+  Future<void> deleteUserData() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.clear();
+    await LocalNotificationsService().removeAllLocalNotifications();
   }
 }

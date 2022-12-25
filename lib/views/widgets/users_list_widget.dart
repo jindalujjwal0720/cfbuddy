@@ -5,9 +5,11 @@ import 'package:bloc1/business_logic/cubit/users_list_cubit.dart';
 import 'package:bloc1/utils/helper_functions_ans_widgets.dart';
 import 'package:bloc1/views/widgets/components/dialog_widgets.dart';
 import 'package:bloc1/views/widgets/components/empty_states.dart';
+import 'package:bloc1/views/widgets/components/error_states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'dart:developer' as dev;
 
 class UsersListWidget extends StatelessWidget {
   const UsersListWidget({Key? key}) : super(key: key);
@@ -159,7 +161,8 @@ class UsersListWidget extends StatelessWidget {
             ],
           );
         } else if (state is UsersListError) {
-          return Text("Error: ${state.message}");
+          dev.log("Error: (Users List widget) - ${state.message}");
+          return const ErrorStates().basicErrorWidget(() {});
         } else {
           return const EmptyStates().emptyUsersList();
         }

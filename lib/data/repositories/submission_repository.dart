@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:bloc1/data/dataproviders/submission_provider.dart';
 import 'package:bloc1/data/models/submission_model.dart';
 import 'package:intl/intl.dart';
+import 'package:html/parser.dart';
 
 abstract class SubmissionRepository {
   Future<List<SubmissionModel>> getSubmissionsOfUser(String handle,
@@ -31,6 +32,15 @@ class SubmissionRepositoryImpl implements SubmissionRepository {
             dateString) result.add(SubmissionModel.fromMap(obj));
       }
     }
+    return result;
+  }
+
+  Future<String> getSubmissionCodeByID(int contestID, int submissionID) async {
+    String result = "";
+    String htmlCode = await SubmissionProviderImpl()
+        .fetchSubmissionByID(contestID, submissionID);
+    var document = parse(htmlCode);
+    result = document.getElementById("program-source-text")!.text;
     return result;
   }
 }

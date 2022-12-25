@@ -4,8 +4,9 @@ import 'package:bloc1/views/widgets/components/empty_states.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'dart:developer' as dev;
 import 'components/dialog_widgets.dart';
+import 'components/error_states.dart';
 
 class UserCardDetailsPageWidget extends StatelessWidget {
   const UserCardDetailsPageWidget({Key? key}) : super(key: key);
@@ -238,7 +239,8 @@ class UserCardDetailsPageWidget extends StatelessWidget {
         } else if (state is UserCardDetailsPageLoading) {
           return const EmptyStates().emptyUserCard();
         } else {
-          return Text("Error: $state");
+          dev.log("Error: (User Card Details Page widget)");
+          return const ErrorStates().basicErrorWidget(() {});
         }
       },
     );

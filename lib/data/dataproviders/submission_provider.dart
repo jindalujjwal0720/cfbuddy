@@ -17,4 +17,15 @@ class SubmissionProviderImpl implements SubmissionProvider {
       return throw Exception("Failed to load data");
     }
   }
+
+  Future<String> fetchSubmissionByID(int contestID, int submissionID) async {
+    String url =
+        "https://codeforces.com/contest/$contestID/submission/$submissionID";
+    final res = await http.get(Uri.parse(url));
+    if (res.statusCode == 200) {
+      return res.body;
+    } else {
+      return throw Exception("Failed to load data");
+    }
+  }
 }

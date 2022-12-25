@@ -201,7 +201,6 @@ Widget makeVerticalBars({
     }
     secondaryFractions[i] = max(secondaryFractions[i], 0.15);
   }
-
   return Column(
     children: [
       AspectRatio(
@@ -305,6 +304,26 @@ Widget makeVerticalBars({
           ),
         ),
       ),
+    ],
+  );
+}
+
+TextSpan markdownBoldAndReturnTextSpan(
+    String s, TextStyle boldStyle, TextStyle style) {
+  List<String> splittedStrings = s.split("\$\$\$");
+  return TextSpan(
+    children: [
+      for (int i = 0; i < splittedStrings.length; i++)
+        if (i % 2 == 1)
+          TextSpan(
+            text: splittedStrings[i],
+            style: boldStyle,
+          )
+        else
+          TextSpan(
+            text: splittedStrings[i],
+            style: style,
+          )
     ],
   );
 }

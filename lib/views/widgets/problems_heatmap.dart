@@ -1,7 +1,10 @@
 import 'package:bloc1/business_logic/cubit/problems_heat_map_cubit.dart';
+import 'package:bloc1/views/widgets/components/empty_states.dart';
+import 'package:bloc1/views/widgets/components/error_states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
+import 'dart:developer' as dev;
 
 class ProblemsHeatMap extends StatelessWidget {
   const ProblemsHeatMap({super.key});
@@ -24,9 +27,10 @@ class ProblemsHeatMap extends StatelessWidget {
             ),
           );
         } else if (state is ProblemsHeatMapError) {
-          return Text("Error from heatmap: ${state.message}");
+          dev.log("Error: (Problem Heatmap widget) - ${state.message}");
+          return const ErrorStates().basicErrorWidget(() {});
         } else {
-          return const Text("Empty state of heatmap");
+          return const EmptyStates().emptyHeatmapWidget();
         }
       },
     );

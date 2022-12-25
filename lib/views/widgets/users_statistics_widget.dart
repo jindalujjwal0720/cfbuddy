@@ -1,7 +1,11 @@
 import 'package:bloc1/business_logic/cubit/user_stats_cubit.dart';
+import 'package:bloc1/views/widgets/components/empty_states.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'dart:developer' as dev;
+
+import 'components/error_states.dart';
 
 class UsersStatisticsWidget extends StatelessWidget {
   const UsersStatisticsWidget({super.key});
@@ -323,9 +327,10 @@ class UsersStatisticsWidget extends StatelessWidget {
             ),
           );
         } else if (state is UserStatsError) {
-          return Text("Error: ${state.message}");
+          dev.log("Error: (User Stats widget) - ${state.message}");
+          return const ErrorStates().basicErrorWidget(() {});
         } else {
-          return const Text("Empty State");
+          return const EmptyStates().emptyUserStatsWidget();
         }
       },
     );

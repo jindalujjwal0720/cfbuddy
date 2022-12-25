@@ -4,8 +4,9 @@ import 'package:bloc1/views/widgets/components/empty_states.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'dart:developer' as dev;
 import 'components/dialog_widgets.dart';
+import 'components/error_states.dart';
 
 class UserCardWidget extends StatelessWidget {
   const UserCardWidget({Key? key}) : super(key: key);
@@ -238,7 +239,8 @@ class UserCardWidget extends StatelessWidget {
         } else if (state is UserCardLoading) {
           return const EmptyStates().emptyUserCard();
         } else {
-          return Text("Error: $state");
+          dev.log("Error: (User Card widget) - $state");
+          return const ErrorStates().basicErrorWidget(() {});
         }
       },
     );

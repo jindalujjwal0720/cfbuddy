@@ -28,12 +28,14 @@ class WelcomePage extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 100.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    FlutterLogo(
-                      size: 64,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Image.asset(
+                      "assets/cflogo.png",
+                      height: 36,
                     ),
-                    Padding(
-                      padding: EdgeInsets.all(12.0),
+                    const Padding(
+                      padding: EdgeInsets.only(left: 12.0),
                       child: Text(
                         "CF Buddy",
                         style: TextStyle(

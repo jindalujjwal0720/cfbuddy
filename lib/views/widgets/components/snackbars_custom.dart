@@ -14,6 +14,22 @@ class CustomSnackbars extends StatelessWidget {
       elevation: 0,
     );
   }
+
+  SnackBar okSnackbar(String message) {
+    return SnackBar(
+      content: snackBarDesign(message, Icons.check, Colors.green),
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+    );
+  }
+
+  SnackBar warningSnackbar(String message) {
+    return SnackBar(
+      content: snackBarDesign(message, Icons.check, Colors.amber),
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+    );
+  }
 }
 
 Widget snackBarDesign(String message, IconData? icon, MaterialColor color) {
