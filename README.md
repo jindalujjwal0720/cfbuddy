@@ -1,16 +1,7 @@
-# bloc1
+# CF Buddy
 
-A new Flutter project.
+A Flutter App to analyse the whole activity of CodeForces on an app. This app allows you to add friends, see their ratings, charts, submissions, problems, strong and weak tags, problems by tags, solutions given by you friends, and much more.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Just download the app from the personally apk and use it.
